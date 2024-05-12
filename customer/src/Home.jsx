@@ -16,15 +16,6 @@ function Home() {
 
             </div>
         </div>
-
-
-     
-    // <div>
-    //     <h1>Welcome</h1>
-    //     <h1>{username}</h1>
-    //     <Link to="/"><button>Logout</button></Link>
-    // </div>
-    
   )
 }
 

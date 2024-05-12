@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
+import bcrypt from 'bcryptjs';
+
+const salt = 10;
+
+
 function Signup(){
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.post('http://localhost:3001/register',{email, password})
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const hashedPassword = await bcrypt.hash(password,salt)
+        axios.post('http://localhost:3001/register',{email, password: hashedPassword})
         .then(result => {console.log(result)
             navigate('/login')
         })

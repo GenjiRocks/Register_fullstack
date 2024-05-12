@@ -2,6 +2,8 @@ const express = require("express")
 const mangoose = require('mongoose')
 const cors = require("cors")
 const EmployeeModel = require('./models/Customer')
+const bcrypt = require("bcryptjs")
+
 
 
 const app = express()
@@ -10,24 +12,28 @@ app.use(cors())
 
 // connect with the database (copy the connection string)
 mangoose.connect("mongodb://localhost:27017/customer");
-
-app.post("/login", (req,res)=>{
+app.post("/login", async (req,res)=>{
     const{email, password} = req.body
-    EmployeeModel.findOne({email: email})
-    .then(user => {
-       if(user){
-        if(user.password === password){
-            res.json("Success")
+    const user = await EmployeeModel.findOne({ email });
+    if(user){
+        const checkPass = await bcrypt.compareSync(password, user.password);
+        if(checkPass){
+            res.json("Success");
         }
         else{
-            res.json("Incorrect Password")
+            res.json("Incorrect Password");
         }
-       }
-       else{
-        res.json("Email is not Registered")
-       }
-    })
+
+    }
+    else{
+        res.json("Email is not Registered");
+    }
 })
+
+
+
+
+
 
 app.post('/register', (req, res)=>{
     EmployeeModel.create(req.body)

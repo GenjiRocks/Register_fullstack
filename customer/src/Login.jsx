@@ -8,6 +8,7 @@ function Login(){
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate()
+    // const [error, setError] = useState();
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -19,6 +20,9 @@ function Login(){
                 
                 navigate('/home')
             }
+            // else{
+            //     setError(result.data)
+            // }
             
         })
         .catch(err=>console.log(err))
@@ -28,6 +32,7 @@ function Login(){
         <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
             <div className="bg-white p-3 rounded w-25">
                 <h2>Login</h2>
+                {/* {error && <div className="alert alert-danger">{error}</div>} */}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlForfor="email">

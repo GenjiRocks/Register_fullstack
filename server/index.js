@@ -22,11 +22,13 @@ app.post("/login", async (req,res)=>{
         }
         else{
             res.json("Incorrect Password");
+            // res.status(401).json({ message: "Incorrect Password" });
         }
 
     }
     else{
         res.json("Email is not Registered");
+        // res.status(404).json({ message: "Email is not Registered" });
     }
 })
 
